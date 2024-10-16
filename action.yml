@@ -30,6 +30,6 @@ runs:
         echo "Last run ID: ${LAST_RUN_ID}"
         echo "last_run_id=${LAST_RUN_ID}" >> $GITHUB_OUTPUT
         
-        LAST_RUN_STATUS=$(gh api -X GET "/repos/${{ github.repository }}/actions/workflows/${WORKFLOW_ID}/runs?status=completed&per_page=1" --jq '.workflow_runs[0].conclusion')
+        LAST_RUN_CONCLUSION=$(gh api -X GET "/repos/${{ github.repository }}/actions/workflows/${WORKFLOW_ID}/runs?status=completed&per_page=1" --jq '.workflow_runs[0].conclusion')
         echo "Last workflow run conclusion: ${LAST_RUN_CONCLUSION}"
         echo "last_run_conclusion=${LAST_RUN_CONCLUSION}" >> $GITHUB_OUTPUT
