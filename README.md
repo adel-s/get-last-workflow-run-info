@@ -2,15 +2,21 @@
 
 This action retrieves the info of the previous workflow run for the current workflow.
 
+## Key differences
+This action stands out from similar solutions for several reasons:
+
+* Reliability with GitHub CLI: It uses the GitHub CLI (`gh` command) for API interactions, ensuring consistent functionality even as GitHub's API evolves. Unlike hardcoded API URLs, the `gh` command is always valid on GitHub Action runners.
+
+* No External Dependencies: By avoiding `curl` for HTTP requests and `jq` for JSON parsing, this action eliminates potential compatibility issues. It relies on the built-in capabilities of the gh command, ensuring smooth operation across different environments.
+
 ## Inputs
 
-`GITHUB_TOKEN`: (Optional) The GitHub token for authentication. If not provided, the action will use the default token `${{ github.token }}`.
+* `GITHUB_TOKEN`: (Optional) The GitHub token for authentication. If not provided, the action will use the default token `${{ github.token }}`.
 
 ## Outputs
 
-`last_run_id`: The ID of the last completed workflow run.
-
-`last_run_conclusion`: The conclusion status of the last completed workflow run.
+* `last_run_id`: The ID of the last completed workflow run.
+* `last_run_conclusion`: The conclusion status of the last completed workflow run.
 
 ## Example Usage
 
