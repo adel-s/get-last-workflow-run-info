@@ -1,0 +1,35 @@
+name: 'Get Previous Workflow Info'
+description: 'Retrieve the information of the last completed workflow run for the current workflow'
+author: 'Adel-S'
+inputs:
+  GITHUB_TOKEN:
+    description: 'GitHub Token to authenticate requests'
+    required: false
+    default: ${{ github.token }}
+
+outputs:
+  last_run_id:
+    description: 'The ID of the last workflow run'
+    value: ${{ steps.get_previous_workflow_info.outputs.last_run_id }}
+  last_run_conclusion:
+    description: 'The conclusion of the last workflow run'
+    value: ${{ steps.get_previous_workflow_info.outputs.last_run_conclusion }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Get previous workflow info
+      shell: bash
+      id: get_previous_workflow_info
+      run: |
+        echo ${{ inputs.GITHUB_TOKEN }} | gh auth login --with-token
+        WORKFLOW_ID=$(gh api -X GET /repos/${{ github.repository }}/actions/runs/${{ github.run_id }} --jq='.workflow_id')
+        echo "Current workflow ID: ${WORKFLOW_ID}"
+        
+        LAST_RUN_ID=$(gh api -X GET "/repos/${{ github.repository }}/actions/workflows/${WORKFLOW_ID}/runs?status=completed&per_page=1" --jq '.workflow_runs[0].id')
+        echo "Last run ID: ${LAST_RUN_ID}"
+        echo "last_run_id=${LAST_RUN_ID}" >> $GITHUB_OUTPUT
+        
+        LAST_RUN_CONCLUSION=$(gh api -X GET "/repos/${{ github.repository }}/actions/workflows/${WORKFLOW_ID}/runs?status=completed&per_page=1" --jq '.workflow_runs[0].conclusion')
+        echo "Last workflow run conclusion: ${LAST_RUN_CONCLUSION}"
+        echo "last_run_conclusion=${LAST_RUN_CONCLUSION}" >> $GITHUB_OUTPUT
