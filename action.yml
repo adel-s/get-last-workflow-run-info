@@ -1,4 +1,4 @@
-name: 'Get Previous Workflow Run Status'
+name: 'Get Previous Workflow Info'
 description: 'Retrieve the information of the last completed workflow run for the current workflow'
 author: 'Adel-S'
 inputs:
