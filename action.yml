@@ -10,14 +10,17 @@ inputs:
 outputs:
   last_run_id:
     description: 'The ID of the last workflow run'
+    value: ${{ steps.get_previous_workflow_info.outputs.last_run_id }}
   last_run_status:
     description: 'The conclusion of the last workflow run'
+    value: ${{ steps.get_previous_workflow_info.outputs.last_run_status }}
 
 runs:
   using: 'composite'
   steps:
     - name: Get previous workflow status
       shell: bash
+      id: get_previous_workflow_info
       run: |
         echo ${{ inputs.GITHUB_TOKEN }} | gh auth login --with-token
         WORKFLOW_ID=$(gh api -X GET /repos/${{ github.repository }}/actions/runs/${{ github.run_id }} --jq='.workflow_id')
