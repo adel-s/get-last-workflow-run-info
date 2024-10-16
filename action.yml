@@ -11,9 +11,9 @@ outputs:
   last_run_id:
     description: 'The ID of the last workflow run'
     value: ${{ steps.get_previous_workflow_info.outputs.last_run_id }}
-  last_run_status:
+  last_run_conclusion:
     description: 'The conclusion of the last workflow run'
-    value: ${{ steps.get_previous_workflow_info.outputs.last_run_status }}
+    value: ${{ steps.get_previous_workflow_info.outputs.last_run_conclusion }}
 
 runs:
   using: 'composite'
@@ -31,5 +31,5 @@ runs:
         echo "last_run_id=${LAST_RUN_ID}" >> $GITHUB_OUTPUT
         
         LAST_RUN_STATUS=$(gh api -X GET "/repos/${{ github.repository }}/actions/workflows/${WORKFLOW_ID}/runs?status=completed&per_page=1" --jq '.workflow_runs[0].conclusion')
-        echo "Last workflow run status: ${LAST_RUN_STATUS}"
-        echo "last_run_status=${LAST_RUN_STATUS}" >> $GITHUB_OUTPUT
+        echo "Last workflow run conclusion: ${LAST_RUN_CONCLUSION}"
+        echo "last_run_conclusion=${LAST_RUN_CONCLUSION}" >> $GITHUB_OUTPUT
