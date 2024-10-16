@@ -1,6 +1,9 @@
 name: 'Get Previous Workflow Info'
 description: 'Retrieve the information of the last completed workflow run for the current workflow'
 author: 'Adel-S'
+branding:
+  icon: 'arrow-down-left'
+  color: 'black'
 inputs:
   GITHUB_TOKEN:
     description: 'GitHub Token to authenticate requests'
