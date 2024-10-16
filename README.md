@@ -10,7 +10,7 @@ This action retrieves the info of the previous workflow run for the current work
 
 `last_run_id`: The ID of the last completed workflow run.
 
-`last_run_status`: The conclusion status of the last completed workflow run.
+`last_run_conclusion`: The conclusion status of the last completed workflow run.
 
 ## Example Usage
 
@@ -40,10 +40,10 @@ jobs:
       - name: Display last run details
         run: |
           echo "Last run ID: ${{ steps.get_last_status.outputs.last_run_id }}"
-          echo "Last run status: ${{ steps.get_last_status.outputs.last_run_status }}"
+          echo "Last run conclusion: ${{ steps.get_last_status.outputs.last_run_conclusion }}"
 
       - name: Perform action only if status differs
-        if: ${{ steps.get_last_status.outputs.last_run_status != job.status }}
+        if: ${{ steps.get_last_status.outputs.last_run_conclusion != job.status }}
         run: |
           echo "Previous run status differs from current run status."
           # Add your desired action here
