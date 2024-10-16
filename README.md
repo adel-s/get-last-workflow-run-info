@@ -2,6 +2,17 @@
 
 This action retrieves the status of the previous workflow run for the current workflow.
 
+## Why this action
+This action stands out from similar solutions for several reasons:
+
+**Reliability with GitHub CLI:** It uses the GitHub CLI (`gh` command) for API interactions, ensuring consistent functionality even as GitHub's API evolves. 
+Unlike hardcoded API URLs, the `gh` command is always valid on GitHub Action runners.
+
+**No External Dependencies:** By avoiding `curl` for HTTP requests and `jq` for JSON parsing, this action eliminates potential compatibility issues. 
+It relies on the built-in capabilities of the gh command, ensuring smooth operation across different environments.
+
+## Sample usecase
+
 ## Inputs
 
 ### `GITHUB_TOKEN`
@@ -19,6 +30,10 @@ name: CI
 
 on:
   push:
+
+permissions:
+  actions: read
+  contents: read
 
 jobs:
   get_previous_status:
@@ -40,9 +55,8 @@ jobs:
 ```
 
 ## Development
-I appreciate your interest in contributing to this project! However, I generally do not accept pull requests as I prefer to maintain control over the codebase. 
-If you discover any bugs or have feature requests, please feel free to open an issue. I will do my best to address any concerns promptly. 
-Thank you for your understanding!
+I appreciate your interest in contributing to this project. However, I generally do not accept pull requests as I prefer to maintain control over the codebase. 
+If you discover any bugs or have feature requests, please feel free to open an issue. I will do my best to address any concerns promptly.
 
 ## License
-This project is licensed under the [GNU GENERAL PUBLIC LICENSE](./LICENSE)
+This project is licensed under the [GNU GPLv3 LICENSE](./LICENSE)
