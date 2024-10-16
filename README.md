@@ -1,6 +1,6 @@
-# Get Previous Workflow Run Status Action
+# Get previous workflow info
 
-This action retrieves the status of the previous workflow run for the current workflow.
+This action retrieves the info of the previous workflow run for the current workflow.
 
 ## Inputs
 
