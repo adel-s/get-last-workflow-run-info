@@ -28,8 +28,8 @@ jobs:
   get_previous_status:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Do something
+        # Here is something your workflow do
 
       - name: Get previous workflow status
         id: get_last_status
@@ -41,6 +41,12 @@ jobs:
         run: |
           echo "Last run ID: ${{ steps.get_last_status.outputs.last_run_id }}"
           echo "Last run status: ${{ steps.get_last_status.outputs.last_run_status }}"
+
+      - name: Perform action only if status differs
+        if: ${{ steps.get_last_status.outputs.last_run_status != job.status }}
+        run: |
+          echo "Previous run status differs from current run status."
+          # Add your desired action here
 ```
 
 ## Development
